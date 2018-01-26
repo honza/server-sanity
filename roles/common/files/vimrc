@@ -38,4 +38,4 @@ nnoremap K <nop>
 
 nnoremap <Space> za
 vnoremap <Space> za
-syntax enable"
+syntax enable
