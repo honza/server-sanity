@@ -4,12 +4,14 @@ set -e
 
 VENV_DIR=~/server-sanity-venv
 
-yum install -y epel-release
-
-yum install -y git python-pip python-virtualenv
+curl -O https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+pip install virtualenv
+yum install -y git
 git clone https://github.com/honza/server-sanity
 cd server-sanity
-virtualenv $VENV_DIR
+virtualenv $VENV_DIR --system-site-packages
+$VENV_DIR/bin/pip install -U pip
 $VENV_DIR/bin/pip install ansible
 $VENV_DIR/bin/ansible-playbook server-sanity.yaml
 
