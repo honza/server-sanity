@@ -1,10 +1,19 @@
 # Copy this script to a blank machine and run it
 
-yum install -y git python-pip
+set -e
+
+VENV_DIR=~/server-sanity-venv
+
+yum install -y epel-release
+
+yum install -y git python-pip python-virtualenv
 git clone https://github.com/honza/server-sanity
 cd server-sanity
-pip install ansible
-ansible-playbook server-sanity.yaml
+virtualenv $VENV_DIR
+$VENV_DIR/bin/pip install ansible
+$VENV_DIR/bin/ansible-playbook server-sanity.yaml
+
+rm -rf $VENV_DIR
 
 cat <<EOF
 =============================
