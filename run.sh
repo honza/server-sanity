@@ -4,6 +4,7 @@ set -e
 
 VENV_DIR=~/server-sanity-venv
 
+yum update -y
 curl -O https://bootstrap.pypa.io/get-pip.py
 python get-pip.py
 pip install virtualenv
