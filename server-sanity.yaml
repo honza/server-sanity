@@ -1,4 +1,7 @@
 ---
-- hosts: localhost
+- hosts: all
   roles:
-    - common
+    - name: common
+      tags: common
+    - name: mosh
+      tags: mosh

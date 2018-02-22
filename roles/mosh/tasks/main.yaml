@@ -1,0 +1,37 @@
+---
+
+- name: Install mosh dependencies
+  action: yum pkg={{item}} state=installed
+  with_items:
+    - automake
+    - autoconf
+    - gcc
+    - gcc-c++
+    - protobuf-devel
+    - ncurses-devel
+    - zlib-devel
+    - openssl-devel 
+
+- name: Clone mosh repository from GitHub
+  git:
+    repo: https://github.com/mobile-shell/mosh.git
+    dest: ~/mosh
+
+- name: Register mosh-server
+  stat:
+    path: /usr/local/bin/mosh-server
+  register: mosh_server_binary
+
+- name: Compile mosh
+  shell: |
+    ls
+    pwd
+    ./autogen.sh
+    ./configure
+    make
+    make install
+    mosh-server
+  become: true
+  args:
+    chdir: ~/mosh
+  when: not mosh_server_binary.stat.exists
