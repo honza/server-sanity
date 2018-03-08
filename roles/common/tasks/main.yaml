@@ -2,6 +2,7 @@
 
 - name: Install packages
   action: yum pkg={{item}} state=installed
+  become: true
   with_items:
     - vim
     - git
